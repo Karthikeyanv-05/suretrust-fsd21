@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es5",                         // Specify ECMAScript target version
+    "lib": ["dom", "esnext"],                // Include DOM and ESNext libraries
+    "allowJs": true,                         // Allow JavaScript files to be compiled
+    "jsx": "react-jsx",                      // Enable JSX support in TypeScript (for React 17+)
+    "module": "esnext",                      // Module system to use
+    "moduleResolution": "node",              // Resolves modules in a Node.js-style
+    "strict": true,                          // Enable strict type-checking options
+    "esModuleInterop": true,                 // Allow default imports from modules without a default export
+    "skipLibCheck": true,                    // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true // Ensure that casing of file names is consistent
+  },
+  "include": [
+    "src/**/*"  // Include all files inside the 'src' folder (you can adjust this to your project's structure)
+  ],
+  "exclude": [
+    "node_modules"  // Exclude node_modules folder from compilation
+  ]
+}

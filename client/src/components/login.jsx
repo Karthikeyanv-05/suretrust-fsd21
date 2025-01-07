@@ -1,94 +1,96 @@
 import React, { useState } from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { setUser, clearUser } from "../redux/userSlice"; // Import actions
-import { baseUrl ,CLIENT_ID } from "../utils/baseUrl"; // Your base URL
+import { baseUrl, CLIENT_ID } from "../utils/baseUrl"; // Ensure baseUrl is configured
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoginView, setIsLoginView] = useState(true); // Default is login view
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user.user);
-
+  // Handle form submission (login/signup)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation for email and password fields
+    // Simple client-side validation
     if (!email || !password || (!isLoginView && password !== confirmPassword)) {
       return toast.error("Please fill in all required fields correctly.");
     }
-    
 
     try {
       let response;
       if (isLoginView) {
-        // Login logic
-        response = await axios.post(`${baseUrl}/api/auth/login`, {
-          email,
-          password,
-        });
+        // Handle Login
+        response = await axios.post(`${baseUrl}/api/auth/login`, { email, password });
       } else {
-        // Sign-up logic
-        response = await axios.post(`${baseUrl}/api/auth/signup`, {
-          email,
-          password,
-          name: email,
-        });
+        // Handle Sign-up
+        response = await axios.post(`${baseUrl}/api/auth/signup`, { email, password, name: email });
       }
 
-      // Handle response and store token
-      const token = response.data.token;
-      localStorage.setItem("token", token);
-      toast.success("Login/Signup success");
-      dispatch(setUser(response.data.user)); // Assuming response contains user data
-      navigate("/dashboard");
+      const { token, user } = response.data;
+
+      if (response.status === 200) {
+        // Store user and token in local storage
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+
+        toast.success("Authentication successful");
+        navigate("/dashboard");
+      } else {
+        throw new Error("Authentication failed");
+      }
     } catch (error) {
-      console.error("Authentication error:", error);
-      toast.error("An error occurred during authentication.");
+      console.error("Error during authentication:", error);
+      // Display detailed error
+      toast.error(error?.response?.data?.message || "Authentication failed. Please try again.");
     }
   };
 
-  const handleGoogleLoginSuccess = async (credentialResponse) => {
-    const { credential, clientId } = credentialResponse;
+  // Handle Google login success
+  const handleGoogleLoginSuccess = async (response) => {
+    const credential = response?.credential;
+
+    if (!credential) {
+      console.error("Google login response is missing credential.");
+      toast.error("Google login failed. Missing credential.");
+      return;
+    }
 
     try {
-      const response = await axios.post(`${baseUrl}/api/auth/google_auth`, {
-        credential,
-        client_id: clientId,
+      // Send Google token to backend for verification
+      const loginResponse = await axios.post(`${baseUrl}/api/auth/google_auth`, {
+        tokenId: credential, // Send the tokenId from Google OAuth
       });
 
-      const { user, token } = response.data;
-      toast.success("Login success");
+      const { user, token } = loginResponse.data;
+      toast.success("Google login success");
 
-      // Store user information and JWT token
+      // Store user and token in local storage
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
 
-      // Dispatch user data to Redux store
-      dispatch(setUser(user));
       navigate("/dashboard");
     } catch (error) {
       console.error("Error during Google login:", error);
-      toast.error("Google login failed.");
+      // Display detailed error
+      toast.error(error?.response?.data?.message || "Google login failed.");
     }
   };
 
+  // Handle Google login failure
   const handleGoogleLoginFailure = () => {
     console.error("Google login failed");
     toast.error("Google login failed.");
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    dispatch(clearUser());
+  // Handle Cancel button click - Redirect to home page
+  const handleCancel = () => {
+    navigate("/"); // Redirect to home page
   };
 
   return (
@@ -97,10 +99,10 @@ const Login = () => {
         className="form-container font-bold px-96 content-center content-right border-4 relative max-w-fit min-w-fit"
         onSubmit={handleSubmit}
       >
-        <GoogleOAuthProvider clientId='process.env.CLIENT_ID'> {/* Replace with actual Google client ID */}
+        <GoogleOAuthProvider clientId={CLIENT_ID || ""}>
           <div className="form-inner mt-3 bg-white p-10 space-y-2 space-x-10 items-center text-center border-4 border-l shadow-2xl rounded-lg max-w-fit min-w-fit">
             <h1 className="text-6xl text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-900">
-              Login Here
+              {isLoginView ? "Login" : "Sign Up"} Here
             </h1>
 
             <div className="space-y-2 space-x-10">
@@ -150,11 +152,11 @@ const Login = () => {
               </button>
             </div>
 
+            {/* Google Login Button */}
             <div className="relative flex justify-center">
               <GoogleLogin
                 onSuccess={handleGoogleLoginSuccess}
-                onError={handleGoogleLoginFailure}
-                useOneTap
+                onError={handleGoogleLoginFailure} 
               />
             </div>
 
@@ -162,6 +164,17 @@ const Login = () => {
               <Link to={isLoginView ? '/register' : '/login'} className="text-xl text-teal-900 space-y-5">
                 {isLoginView ? "Don't have an account? Click here" : "Already have an account? Login here"}
               </Link>
+            </div>
+
+            {/* Cancel Button */}
+            <div className="text-center mt-4">
+              <button
+                type="button"
+                className="px-20 bg-gray-500 p-2 font-mono text-2xl text-white hover:bg-gray-700 rounded-lg"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </GoogleOAuthProvider>

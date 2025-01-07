@@ -1,7 +1,6 @@
 // store.js
 import { AnyAction, configureStore, ThunkDispatch } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
-import cartReducer from './cartSlice'
 import addressReducer from './addressSlice'
 import { useDispatch } from 'react-redux';
 
