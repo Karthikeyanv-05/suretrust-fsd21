@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { baseUrl, CLIENT_ID } from "../utils/baseUrl"; // Ensure baseUrl is configured
+import { baseUrl, CLIENT_ID } from "../utils/baseUrl"; 
 
 const Login = () => {
   const [email, setEmail] = useState("");

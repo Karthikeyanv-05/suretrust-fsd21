@@ -1,11 +1,11 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-
+import { navigate } from "@reach/router";
 function Tnpsc() {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-300">
-        {/* Header Section */}
+    
         <Navbar />
         <header className="relative bg-cover bg-center h-[600px] text-center flex flex-col justify-center bg-[url('./images/tnpsc.jpg')]">
           <div className="bg-black bg-opacity-50 h-full w-full absolute top-0 left-0"></div>
@@ -16,7 +16,7 @@ function Tnpsc() {
             Your Gateway to Prestigious Government Positions in Tamil Nadu
           </p>
           <button className="relative z-10 mt-8 px-8 py-4 text-2xl font-bold text-black transition-all duration-300 bg-yellow-400 rounded-full hover:bg-yellow-600 hover:text-white shadow-lg">
-            Explore Opportunities
+            <a href="#explore">Explore Opportunities</a>
           </button>
         </header>
 
@@ -35,7 +35,7 @@ function Tnpsc() {
           </section>
 
           {/* Service Groups */}
-          <section className="mt-16 grid gap-12 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+          <section id="explore" className="mt-16 grid gap-12 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
             {[
               {
                 title: "Group I Services",
@@ -150,8 +150,8 @@ function Tnpsc() {
             Take the first step toward a prestigious career in Tamil Nadu's
             government services. Explore vacancies and apply now.
           </p>
-          <button className="mt-8 px-10 py-4 text-xl font-bold bg-white text-green-500 rounded-full hover:bg-yellow-400 hover:text-white transition duration-300">
-            Apply Now
+          <button className="mt-8 px-10 py-4 text-xl font-bold bg-white text-green-500 rounded-full hover:bg-yellow-400 hover:text-white transition duration-300" >
+            <a href="https://www.tnpsc.gov.in/">Apply Now</a>
           </button>
         </section>
 

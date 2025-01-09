@@ -15,6 +15,7 @@ import TNSDCPage from "./pages/tnsdc.jsx"
 import PMKVYPage from "./pages/pmkvy.jsx"
 import Dashboard from "./components/dashboard.jsx"
 import ContactForm from "./pages/contactform"
+import Profile from "./pages/profile"
 export default function App() {
   return (
      <>
@@ -36,6 +37,7 @@ export default function App() {
             <Route path="/pmkvy" element={<PMKVYPage/>}/>
             <Route path="/dashboard" element={<Dashboard/>}/>
             <Route path="/contact" element={<ContactForm/>}/>
+            <Route path="/profile" element={<Profile/>}/>
 
           </Routes>
           </switch>

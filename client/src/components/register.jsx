@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import { baseUrl, CLIENT_ID } from "../utils/baseUrl"; // Replace with your API base URL
+import { baseUrl, CLIENT_ID } from "../utils/baseUrl";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -14,7 +14,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  // Handle Google login success
+  
   const handleGoogleLoginSuccess = async (response) => {
     const credential = response.credential;
 
@@ -25,15 +25,15 @@ const Register = () => {
     }
 
     try {
-      // Send Google token to backend for verification
+      
       const loginResponse = await axios.post(`${baseUrl}/api/auth/google_auth`, {
-        tokenId: credential, // Send the tokenId from Google OAuth
+        tokenId: credential, 
       });
 
       const { user, token } = loginResponse.data;
       toast.success("Google login success");
 
-      // Store user and token in local storage
+      
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
 
@@ -44,7 +44,7 @@ const Register = () => {
     }
   };
 
-  // Handle Google login failure (no arguments needed)
+  
   const handleGoogleLoginFailure = () => {
     console.error("Google login failed");
     toast.error("Google login failed.");
@@ -54,20 +54,19 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Simple client-side validation
+    
     if (!email || !password || !confirmPassword || password !== confirmPassword) {
       return toast.error("Please fill in all required fields correctly.");
     }
   
     try {
-      // Prepare the payload for registration
+    
       const payload = {
         email,
         password,
-        name: email.split('@')[0],  // You can modify this depending on how you want to handle the name
+        name: email.split('@')[0],  
       };
   
-      // Send the POST request to register the user
       const response = await axios.post(`${baseUrl}/api/auth/signup`, payload);
   
       const { token, user } = response.data;
@@ -75,13 +74,13 @@ const Register = () => {
       localStorage.setItem("token", token);
   
       toast.success("Registration successful");
-      navigate("/dashboard");  // Redirect to dashboard after successful registration
+      navigate("/dashboard");  
     } catch (error) {
       console.error("Error during registration:", error.response ? error.response.data : error.message);
       toast.error(error.response?.data?.error || "Registration failed. Please try again.");
     }
   };
-  // Handle Cancel button click - Redirect to home page
+
   const handleCancel = () => {
     navigate("/"); // Redirect to home page
   };

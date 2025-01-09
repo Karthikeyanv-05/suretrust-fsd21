@@ -5,7 +5,6 @@ function RRB() {
   return (
     <div className="bg-gray-50 text-gray-800 font-sans">
       <Navbar />
-      {/* Hero Section */}
       <header className="relative bg-cover bg-center h-screen flex items-center justify-center bg-[url('./images/rrb.jpg')]">
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
         <div className="text-center text-white z-10 px-4">
@@ -39,12 +38,12 @@ function RRB() {
       </section>
 
       {/* Job Categories */}
-      <section id="categories" className="bg-gray-100 py-16">
+      <section  className="bg-gray-100 py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-16">
           <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
             Job Categories
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div id="explore" className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Group D */}
             <div className="bg-white shadow-lg rounded-lg p-6">
               <h3 className="text-xl font-bold text-green-600 mb-4">Group D</h3>
@@ -156,7 +155,6 @@ function RRB() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 py-6 text-center">
         <p>
           © 2024 RRB Careers. All Rights Reserved. Contact us at{" "}

@@ -18,7 +18,7 @@ function TNSDCPage() {
               Empowering Tamil Nadu's Future with Skill Training & Education
             </p>
             <button className="mt-8 px-8 py-4 bg-yellow-400 text-black text-xl font-bold rounded-full hover:bg-yellow-600 hover:text-white transition-all">
-              Discover Opportunities
+              <a href="#explore">Discover Opportunities</a>
             </button>
           </div>
         </header>
@@ -35,7 +35,7 @@ function TNSDCPage() {
 
         {/* Skill Development Programs Section */}
         <section className="mt-12 bg-gray-100 py-12">
-          <div className="max-w-7xl mx-auto px-6 lg:px-16">
+          <div id='explore' className="max-w-7xl mx-auto px-6 lg:px-16">
             <h2 className="text-3xl font-extrabold text-gray-800 text-center">
               Explore Our Skill Development Programs
             </h2>
@@ -186,7 +186,7 @@ function TNSDCPage() {
             Unlock a world of opportunities by enrolling in TNSDC's skill development programs. Empower yourself with skills that will define your future.
           </p>
           <button className="mt-8 px-10 py-4 bg-yellow-500 text-gray-900 text-xl font-bold rounded-full hover:bg-yellow-600 hover:text-white transition duration-300">
-            Apply Now
+            <a href="https://www.tnskill.tn.gov.in/">Apply Now</a>
           </button>
         </section>
 

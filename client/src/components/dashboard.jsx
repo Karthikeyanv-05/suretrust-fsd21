@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Dashboard = () => {
@@ -12,19 +12,23 @@ const Dashboard = () => {
     goalsAchieved: 0,
   });
 
-  // Check if user is authenticated by token in localStorage
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
 
+    // Check if token or user data is missing
     if (!token || !userData) {
       navigate('/login');
     } else {
       try {
-        if (userData) {
+        // If user data exists and is a valid JSON string, parse it
+        if (userData !== 'undefined') {
           const parsedUser = JSON.parse(userData);
           setUser(parsedUser);
+        } else {
+          console.error('User data is undefined.');
         }
+        // Fetch data for career, education, and statistics
         fetchCareerData();
         fetchEducationData();
         fetchUserStatistics();
@@ -34,7 +38,7 @@ const Dashboard = () => {
     }
   }, [navigate]);
 
-  // Fetch career-related data
+  // Fetch career data
   const fetchCareerData = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/user/career', {
@@ -48,7 +52,7 @@ const Dashboard = () => {
     }
   };
 
-  // Fetch education-related data
+  // Fetch education data
   const fetchEducationData = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/user/education', {
@@ -62,7 +66,7 @@ const Dashboard = () => {
     }
   };
 
-  // Fetch user statistics (enrolled courses, goals achieved, etc.)
+  // Fetch user statistics
   const fetchUserStatistics = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/user/statistics', {
@@ -84,31 +88,30 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
-      {/* Sidebar */}
-      <div className="w-64 bg-blue-800 text-white p-5">
+    <div className="min-h-screen bg-gradient-to-tr from-neutral-600 to-lime-600 flex">
+      <div className="w-64 bg-gradient-to-tr from-neutral-600 text-white p-5">
         <div className="text-3xl font-bold mb-10">Career Guide</div>
         <ul>
-          <li className="py-3 px-5 hover:bg-blue-600 rounded">
-            <a href="#">Dashboard</a>
+          <li className="py-3 px-5 hover:bg-lime-500 rounded">
+            <Link to='/profile'>Dashboard</Link>
           </li>
-          <li className="py-3 px-5 hover:bg-blue-600 rounded">
-            <a href="#">Profile</a>
+          <li className="py-3 px-5 hover:bg-lime-500 rounded">
+            <Link to="/profile">Profile</Link>
           </li>
-          <li className="py-3 px-5 hover:bg-blue-600 rounded">
-            <a href="#">Job Opportunities</a>
+          <li className="py-3 px-5 hover:bg-lime-500 rounded">
+            <Link to="/profile">Job Opportunities</Link>
           </li>
-          <li className="py-3 px-5 hover:bg-blue-600 rounded">
-            <a href="#">Education Resources</a>
+          <li className="py-3 px-5 hover:bg-lime-500 rounded">
+            <Link to="/profile">Education Resources</Link>
           </li>
         </ul>
       </div>
 
-      {/* Main Content */}
       <div className="flex-1 p-8">
-        {/* Navbar */}
         <div className="flex justify-between items-center mb-6">
-          <div className="text-3xl font-bold text-gray-800">Welcome, {user?.name}</div>
+          <div className="text-3xl font-bold text-gray-800">
+            Welcome, {user ? user.name : 'Loading...'}
+          </div>
           <button
             onClick={handleLogout}
             className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
@@ -117,7 +120,6 @@ const Dashboard = () => {
           </button>
         </div>
 
-        {/* User Info */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-xl font-semibold text-gray-700 mb-4">User Information</h3>
@@ -132,7 +134,6 @@ const Dashboard = () => {
             )}
           </div>
 
-          {/* Career Data */}
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-xl font-semibold text-gray-700 mb-4">Career Guidance</h3>
             <div className="space-y-4">
@@ -148,7 +149,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Education Data */}
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-xl font-semibold text-gray-700 mb-4">Education Tracker</h3>
             <div className="space-y-4">
@@ -165,7 +165,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* User Statistics */}
         <div className="bg-white p-6 mt-8 rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold text-gray-700 mb-4">User Statistics</h3>
           <div className="space-y-4">
@@ -180,11 +179,9 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Recent Notifications */}
         <div className="bg-white p-6 mt-8 rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold text-gray-700 mb-4">Recent Notifications</h3>
           <div className="space-y-4">
-            {/* Example notifications */}
             <p className="text-lg text-gray-600">New career opportunities available!</p>
             <p className="text-lg text-gray-600">You have completed a course in Data Science.</p>
             <p className="text-lg text-gray-600">Your next class starts tomorrow at 10:00 AM.</p>

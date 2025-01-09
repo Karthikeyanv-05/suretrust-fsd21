@@ -20,6 +20,7 @@ app.use(express.json());
 app.use('/api/auth', userRouter);
 app.use('/api/newsletter', newsletterRouter);
 
+
 connectDB();
 
 const PORT = process.env.PORT || 5000;

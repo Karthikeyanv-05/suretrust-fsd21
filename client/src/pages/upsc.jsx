@@ -195,7 +195,7 @@ function UPSCPage() {
             preparing for a bright future in India's government services.
           </p>
           <button className="mt-8 px-10 py-4 bg-yellow-500 text-gray-900 text-xl font-bold rounded-full hover:bg-yellow-600 hover:text-white transition duration-300">
-            Apply Now
+           <a href="https://upsc.gov.in/"> Apply Now</a>
           </button>
         </section>
 
