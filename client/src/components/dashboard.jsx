@@ -66,7 +66,6 @@ const Dashboard = () => {
     }
   };
 
-  // Fetch user statistics
   const fetchUserStatistics = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/user/statistics', {
@@ -76,10 +75,11 @@ const Dashboard = () => {
       });
       setStatistics(response.data);
     } catch (error) {
+      toast.error('Failed to fetch user statistics');
       console.error('Error fetching statistics:', error);
     }
   };
-
+  
   // Handle logout
   const handleLogout = () => {
     localStorage.removeItem('token');

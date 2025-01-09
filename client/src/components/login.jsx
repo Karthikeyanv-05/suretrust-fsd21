@@ -5,19 +5,23 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { baseUrl, CLIENT_ID } from "../utils/baseUrl"; 
+import { ClipLoader } from "react-spinners";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isLoginView, setIsLoginView] = useState(true); // Default is login view
+  const [isLoginView, setIsLoginView] = useState(true); 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  // Handle form submission (login/signup)
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    // Simple client-side validation
+    
     if (!email || !password || (!isLoginView && password !== confirmPassword)) {
       return toast.error("Please fill in all required fields correctly.");
     }
@@ -25,33 +29,33 @@ const Login = () => {
     try {
       let response;
       if (isLoginView) {
-        // Handle Login
+    
         response = await axios.post(`${baseUrl}/api/auth/login`, { email, password });
       } else {
-        // Handle Sign-up
+        
         response = await axios.post(`${baseUrl}/api/auth/signup`, { email, password, name: email });
       }
 
       const { token, user } = response.data;
 
       if (response.status === 200) {
-        // Store user and token in local storage
+        
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
 
-        toast.success("Authentication successful");
+        toast.success("Authentication successful"),2000;
         navigate("/dashboard");
       } else {
         throw new Error("Authentication failed");
       }
     } catch (error) {
       console.error("Error during authentication:", error);
-      // Display detailed error
+     
       toast.error(error?.response?.data?.message || "Authentication failed. Please try again.");
     }
   };
 
-  // Handle Google login success
+ 
   const handleGoogleLoginSuccess = async (response) => {
     const credential = response?.credential;
 
@@ -62,15 +66,14 @@ const Login = () => {
     }
 
     try {
-      // Send Google token to backend for verification
+      
       const loginResponse = await axios.post(`${baseUrl}/api/auth/google_auth`, {
-        tokenId: credential, // Send the tokenId from Google OAuth
+        tokenId: credential, 
       });
 
       const { user, token } = loginResponse.data;
       toast.success("Google login success");
 
-      // Store user and token in local storage
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
 
@@ -82,19 +85,19 @@ const Login = () => {
     }
   };
 
-  // Handle Google login failure
+ 
   const handleGoogleLoginFailure = () => {
     console.error("Google login failed");
     toast.error("Google login failed.");
   };
 
-  // Handle Cancel button click - Redirect to home page
   const handleCancel = () => {
-    navigate("/"); // Redirect to home page
+    navigate("/"); 
   };
 
   return (
     <>
+      {loading && <ClipLoader loading={loading} size={50} color={"#000"} />}
       <form
         className="form-container font-bold px-96 content-center content-right border-4 relative max-w-fit min-w-fit"
         onSubmit={handleSubmit}

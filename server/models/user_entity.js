@@ -5,11 +5,29 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
-    email: { type: String, required: true, unique: true, match: [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Invalid email'] },
+    email: { 
+      type: String, 
+      required: true, 
+      unique: true, 
+      match: [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Invalid email'],
+      lowercase: true 
+    },
     name: { type: String, required: true },
-    password: { type: String, required: function () { return this.authSource === 'self'; } },
-    authSource: { type: String, enum: ['self', 'google'], default: 'self' },
-    role: { type: String, enum: ['admin', 'user', 'superadmin'], default: 'user' },
+    password: { 
+      type: String, 
+      required: function () { return this.authSource === 'self'; },
+      minlength: 8, 
+    },
+    authSource: { 
+      type: String, 
+      enum: ['self', 'google'], 
+      default: 'self' 
+    },
+    role: { 
+      type: String, 
+      enum: ['admin', 'user', 'superadmin'], 
+      default: 'user' 
+    },
     picture: { type: String },
   },
   { timestamps: true }
@@ -25,7 +43,7 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.comparePassword = async function (password) {
   if (this.authSource === 'self') return await bcrypt.compare(password, this.password);
-  return true;
+  return true; 
 };
 
 const User = mongoose.model('User', userSchema);

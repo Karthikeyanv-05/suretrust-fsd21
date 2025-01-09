@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/user_entity.js';
 import dotenv from 'dotenv';
+import fetch from 'node-fetch';
 
 dotenv.config();
 
@@ -12,9 +13,14 @@ export const signUpController = async (req, res) => {
   try {
     const userExist = await User.findOne({ email });
     if (userExist) return res.status(400).json({ message: 'User already exists' });
-    const newUser = new User({ email, name, password });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({ email, name, password: hashedPassword });
     await newUser.save();
+
     const token = jwt.sign({ userId: newUser._id }, JWT_SECRET, { expiresIn: '1h' });
+
     res.status(201).json({ token });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -37,22 +43,36 @@ export const loginController = async (req, res) => {
 
 export const googleAuthController = async (req, res) => {
   const { tokenId } = req.body;
+
   try {
     const response = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${tokenId}`);
     const data = await response.json();
-    if (!data.email) return res.status(400).json({ message: 'Google Authentication failed' });
+
+    if (response.status !== 200 || !data.email) {
+      return res.status(400).json({ message: 'Google Authentication failed' });
+    }
+
     let user = await User.findOne({ email: data.email });
+
     if (!user) {
-      user = new User({ email: data.email, name: data.name, authSource: 'google', picture: data.picture });
+      user = new User({
+        email: data.email,
+        name: data.name,
+        authSource: 'google',
+        picture: data.picture,
+      });
       await user.save();
     }
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
     res.json({ token });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error during Google authentication:", error);
+    res.status(500).json({ message: 'Google authentication failed. Please try again later.' });
   }
 };
 
 export const profileController = async (req, res) => {
   res.json(req.user);
+  res.json({ message: 'Profile fetched successfully' });
+  
 };
