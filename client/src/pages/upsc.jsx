@@ -4,9 +4,8 @@ import Navbar from "../components/Navbar";
 function UPSCPage() {
   return (
     <>
-      {/* Page Wrapper */}
+
       <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200">
-        {/* Hero Section */}
         <Navbar />
         <header className="relative bg-cover bg-center h-[700px] flex flex-col justify-center bg-[url('./images/upsc.jpg')]">
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -18,7 +17,7 @@ function UPSCPage() {
               Explore Your Journey Towards India's Most Prestigious Careers
             </p>
             <button className="mt-8 px-8 py-4 bg-yellow-400 text-black text-xl font-bold rounded-full hover:bg-yellow-600 hover:text-white transition-all">
-              Discover Opportunities
+             <a href="#explore"> Discover Opportunities</a>
             </button>
           </div>
         </header>
@@ -37,7 +36,7 @@ function UPSCPage() {
 
         {/* Services Section */}
         <section className="mt-12 bg-gray-100 py-12">
-          <div className="max-w-7xl mx-auto px-6 lg:px-16">
+          <div  id='explore' className="max-w-7xl mx-auto px-6 lg:px-16">
             <h2 className="text-3xl font-extrabold text-gray-800 text-center">
               Explore Our Services
             </h2>

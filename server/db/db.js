@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const mongoURL = process.env.MONGOURL;
+const mongoURL = process.env.uri;
 
 if (!mongoURL) {
     console.error("MongoDB connection string is missing in .env file. Please define MONGOURL.");

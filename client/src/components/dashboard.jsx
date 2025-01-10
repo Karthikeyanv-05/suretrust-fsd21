@@ -16,19 +16,17 @@ const Dashboard = () => {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
 
-    // Check if token or user data is missing
     if (!token || !userData) {
       navigate('/login');
     } else {
       try {
-        // If user data exists and is a valid JSON string, parse it
+      
         if (userData !== 'undefined') {
           const parsedUser = JSON.parse(userData);
           setUser(parsedUser);
         } else {
           console.error('User data is undefined.');
         }
-        // Fetch data for career, education, and statistics
         fetchCareerData();
         fetchEducationData();
         fetchUserStatistics();
@@ -38,7 +36,6 @@ const Dashboard = () => {
     }
   }, [navigate]);
 
-  // Fetch career data
   const fetchCareerData = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/user/career', {
@@ -52,7 +49,7 @@ const Dashboard = () => {
     }
   };
 
-  // Fetch education data
+
   const fetchEducationData = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/user/education', {
