@@ -29,12 +29,12 @@ connectDB();
 
 // Serve static files from the frontend dist folder
 const __dirname = path.resolve(); // Handle __dirname in ES module
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // For any other requests, send the index.html (for Single Page Application routing)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
-
+ app.listen(5000, () => console.log(`Server running on http://localhost:5000`));
 // Export the app for Vercel (serverless function)
 export default app;

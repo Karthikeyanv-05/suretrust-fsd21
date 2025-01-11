@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { baseUrl, CLIENT_ID } from "../utils/baseUrl"; 
+import  CLIENT_ID from "../utils/baseUrl"; 
 import { ClipLoader } from "react-spinners";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -30,10 +30,10 @@ const Login = () => {
       let response;
       if (isLoginView) {
     
-        response = await axios.post(`${baseUrl}/api/auth/login`, { email, password });
+        response = await axios.post(`/api/auth/login`, { email, password });
       } else {
         
-        response = await axios.post(`${baseUrl}/api/auth/signup`, { email, password, name: email });
+        response = await axios.post(`/api/auth/signup`, { email, password, name: email });
       }
 
       const { token, user } = response.data;
@@ -67,7 +67,7 @@ const Login = () => {
 
     try {
       
-      const loginResponse = await axios.post(`${baseUrl}/api/auth/google_auth`, {
+      const loginResponse = await axios.post(`/api/auth/google_auth`, {
         tokenId: credential, 
       });
 

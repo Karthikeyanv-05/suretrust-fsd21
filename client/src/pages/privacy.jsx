@@ -13,7 +13,7 @@ const PrivacyPolicy = () => {
         </h1>
 
         <div className="space-y-8">
-          {/* Introduction Section */}
+          
           <section>
             <h2 className="text-2xl font-semibold text-teal-600 mb-4">
               Introduction
@@ -42,8 +42,6 @@ const PrivacyPolicy = () => {
               <li>Cookies and tracking data</li>
             </ul>
           </section>
-
-          {/* How We Use Your Information */}
           <section>
             <h2 className="text-2xl font-semibold text-teal-600 mb-4">
               How We Use Your Information
@@ -60,7 +58,7 @@ const PrivacyPolicy = () => {
             </ul>
           </section>
 
-          {/* Data Security */}
+          
           <section>
             <h2 className="text-2xl font-semibold text-teal-600 mb-4">
               Data Security
@@ -73,8 +71,6 @@ const PrivacyPolicy = () => {
               cannot guarantee the absolute security of your data.
             </p>
           </section>
-
-          {/* Third-Party Disclosure */}
           <section>
             <h2 className="text-2xl font-semibold text-teal-600 mb-4">
               Third-Party Disclosure
@@ -88,7 +84,7 @@ const PrivacyPolicy = () => {
             </p>
           </section>
 
-          {/* Cookies */}
+          
           <section>
             <h2 className="text-2xl font-semibold text-teal-600 mb-4">
               Cookies
@@ -102,7 +98,7 @@ const PrivacyPolicy = () => {
             </p>
           </section>
 
-          {/* Your Rights */}
+         
           <section>
             <h2 className="text-2xl font-semibold text-teal-600 mb-4">
               Your Rights
@@ -118,7 +114,6 @@ const PrivacyPolicy = () => {
             </ul>
           </section>
 
-          {/* Changes to this Privacy Policy */}
           <section>
             <h2 className="text-2xl font-semibold text-teal-600 mb-4">
               Changes to this Privacy Policy
@@ -132,7 +127,7 @@ const PrivacyPolicy = () => {
             </p>
           </section>
 
-          {/* Contact Information */}
+         
           <section>
             <h2 className="text-2xl font-semibold text-teal-600 mb-4">
               Contact Us

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import { baseUrl, CLIENT_ID } from "../utils/baseUrl";
+import  CLIENT_ID  from "../utils/baseUrl";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
@@ -25,7 +25,7 @@ const Register = () => {
     }
   
     try {
-      const loginResponse = await axios.post(`${baseUrl}/api/auth/google_auth`, {
+      const loginResponse = await axios.post(`/api/auth/google_auth`, {
         tokenId: credential,
       });
   
@@ -60,7 +60,7 @@ const Register = () => {
         name: email.split('@')[0],  
       };
 
-      const response = await axios.post(`${baseUrl}/api/auth/signup`, payload);
+      const response = await axios.post(`/api/auth/signup`, payload);
 
       const { token, user } = response.data;
       localStorage.setItem("user", JSON.stringify(user));

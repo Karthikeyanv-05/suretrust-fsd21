@@ -38,7 +38,7 @@ const Dashboard = () => {
 
   const fetchCareerData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/user/career', {
+      const response = await axios.get('/api/user/career', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -52,7 +52,7 @@ const Dashboard = () => {
 
   const fetchEducationData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/user/education', {
+      const response = await axios.get('/api/user/education', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -65,7 +65,7 @@ const Dashboard = () => {
 
   const fetchUserStatistics = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/user/statistics', {
+      const response = await axios.get('/api/user/statistics', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

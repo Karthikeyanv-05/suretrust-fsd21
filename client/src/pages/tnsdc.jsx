@@ -4,9 +4,9 @@ import Navbar from "../components/Navbar";
 function TNSDCPage() {
   return (
     <>
-      {/* Page Wrapper */}
+    
       <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200">
-        {/* Hero Section */}
+        
         <Navbar />
         <header className="relative bg-cover bg-center h-[700px] flex flex-col justify-center bg-[url('./images/tnsdc.png')]">
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -23,7 +23,7 @@ function TNSDCPage() {
           </div>
         </header>
 
-        {/* About Section */}
+        
         <section className="max-w-7xl mx-auto px-6 lg:px-16 py-12 text-center">
           <h2 className="text-4xl font-extrabold text-gray-800">
             Empowering Youth with Skills for a Brighter Future
@@ -33,7 +33,7 @@ function TNSDCPage() {
           </p>
         </section>
 
-        {/* Skill Development Programs Section */}
+       
         <section className="mt-12 bg-gray-100 py-12">
           <div id='explore' className="max-w-7xl mx-auto px-6 lg:px-16">
             <h2 className="text-3xl font-extrabold text-gray-800 text-center">
@@ -154,7 +154,7 @@ function TNSDCPage() {
           </div>
         </section>
 
-        {/* Why Choose TNSDC? */}
+   
         <section className="mt-20 bg-gradient-to-r from-blue-500 to-indigo-500 py-12 text-white">
           <h2 className="text-center text-4xl font-extrabold">
             Why Choose TNSDC?
@@ -179,7 +179,7 @@ function TNSDCPage() {
           </div>
         </section>
 
-        {/* Call to Action */}
+        
         <section className="py-16 text-center bg-gray-800 text-white">
           <h2 className="text-4xl font-extrabold">Start Your Skill Development Journey</h2>
           <p className="mt-4 text-lg max-w-3xl mx-auto">
@@ -190,7 +190,7 @@ function TNSDCPage() {
           </button>
         </section>
 
-        {/* Footer */}
+      
         <footer className="bg-gray-900 text-gray-400 py-8 text-center">
           <p>© 2024 TNSDC. All Rights Reserved.</p>
           <p>

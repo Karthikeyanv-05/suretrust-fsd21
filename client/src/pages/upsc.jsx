@@ -34,7 +34,6 @@ function UPSCPage() {
           </p>
         </section>
 
-        {/* Services Section */}
         <section className="mt-12 bg-gray-100 py-12">
           <div  id='explore' className="max-w-7xl mx-auto px-6 lg:px-16">
             <h2 className="text-3xl font-extrabold text-gray-800 text-center">
@@ -161,7 +160,7 @@ function UPSCPage() {
           </div>
         </section>
 
-        {/* Why Choose UPSC */}
+        
         <section className="mt-20 bg-gradient-to-r from-blue-500 to-indigo-500 py-12 text-white">
           <h2 className="text-center text-4xl font-extrabold">
             Why Choose UPSC?
@@ -198,7 +197,7 @@ function UPSCPage() {
           </button>
         </section>
 
-        {/* Footer */}
+        
         <footer className="bg-gray-900 text-gray-400 py-8 text-center">
           <p>© 2024 UPSC Recruitment Services. All Rights Reserved.</p>
           <p>
