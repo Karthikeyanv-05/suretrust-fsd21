@@ -11,12 +11,7 @@ dotenv.config();
 const app = express();
 
 // Middleware configuration
-app.use(cors({
-  origin: 'https://suretrust-fsd21-arx1.vercel.app', // Update for production
-  methods: 'GET, POST, PUT, DELETE',
-  credentials: true,
-  allowedHeaders: 'Content-Type, Authorization',
-}));
+app.use(cors());
 
 app.use(express.json());
 
@@ -35,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
- app.listen(5000, () => console.log(`Server running on http://localhost:5000`));
+const PORT = process.env.PORT ||5000;
+ app.listen(PORT, () => console.log(`Server running on http://localhost:PORT`));
 // Export the app for Vercel (serverless function)
 export default app;
